@@ -68,6 +68,15 @@ $ ./manage.py startapp your_apps_name
     5. test     : for unit testing
     5. view     : all about view.
 
+* adding templates in Django can be automated by listing our name apps in apps settings.py
+* DTL (Django Template Language) is special language to render template used by Django:
+    - Documentation to tags (https://docs.djangoproject.com/en/4.2/ref/templates/builtins/)
+
 # ETC
 -----
 * quick review for git: https://academind.com/tutorials/git-the-basics/
+* Django extendsion for vs code:
+    Name: Django
+    Id: batisteo.vscode-django
+    Description: Beautiful syntax and scoped snippets for perfectionists with deadlines
+    Publisher: Baptiste Darthenay
