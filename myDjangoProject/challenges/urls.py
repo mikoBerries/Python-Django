@@ -1,4 +1,4 @@
-# contant all url for challenges module
+# containt all url for challenges module
 
 from django.urls import path
 
