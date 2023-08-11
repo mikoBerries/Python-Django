@@ -26,6 +26,11 @@ positional arguments:
   directory             Optional destination directory
 
 ```
+* starting a django apps:
+```
+$ python manage.py startapp your_apps_name
+```
+* all basic documentation:(https://docs.djangoproject.com/en/4.2/intro/tutorial01/)
 
 * Virtual enviroment in python
     1. Installing virtualenv
