@@ -77,6 +77,27 @@ $ ./manage.py startapp your_apps_name
 * DTL (Django Template Language) is special language to render template used by Django:
     - Documentation to tags (https://docs.djangoproject.com/en/4.2/ref/templates/builtins/)
 
+
+# Django models
+---------------
+
+* Inside of django apps there is a django models.py that will hold models that used for specifict apps. 
+* after defining some models django can automate make migration and migrate it using
+```
+# To make migration file
+$ py ./myDjangoProject/manage.py makemigrations
+# to execute migration file
+$ py ./myDjangoProject/manage.py migrate
+```
+* Django queerying is chached within query set statement.
+* Deleting models:
+    - https://docs.djangoproject.com/en/3.1/topics/db/queries/#deleting-objects
+* Updateing models (bulk update):
+    - https://docs.djangoproject.com/en/3.0/ref/models/querysets/#bulk-update
+
+* creating models (bulk create):
+    - https://docs.djangoproject.com/en/3.0/ref/models/querysets/#bulk-create
+
 # ETC
 -----
 * quick review for git: https://academind.com/tutorials/git-the-basics/

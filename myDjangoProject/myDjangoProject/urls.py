@@ -22,5 +22,6 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("challenges/", include("challenges.urls")),
-    path("prj/blog/", include("blog.urls"))
+    path("prj/blog/", include("blog.urls")),
+    path("bookstore/", include("book_store.urls"))
 ]

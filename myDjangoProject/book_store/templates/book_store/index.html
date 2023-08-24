@@ -1,0 +1,22 @@
+{% extends "book_store/base.html" %}
+
+{% block title %}
+  All Books
+{% endblock %}
+
+{% block content %}
+  <ul>
+    <li>BOOKS!!</li>
+    {% for book in books %}
+        <li>{{ book.title }}</a> (Rating: {{ book.rating }})</li>
+    {% endfor %}
+    {% comment %} {% for book in books %}
+      
+    {% endfor %} {% endcomment %}
+  </ul>
+
+  <hr>
+
+  {% comment %} <p>Total Number Of Books: {{ total_number_of_books }}</p>
+  <p>Average Rating: {{ average_rating.rating__avg }}</p> {% endcomment %}
+{% endblock %}
