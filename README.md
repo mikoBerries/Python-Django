@@ -94,9 +94,9 @@ $ py ./myDjangoProject/manage.py migrate
     - https://docs.djangoproject.com/en/3.1/topics/db/queries/#deleting-objects
 * Updateing models (bulk update):
     - https://docs.djangoproject.com/en/3.0/ref/models/querysets/#bulk-update
-
 * creating models (bulk create):
     - https://docs.djangoproject.com/en/3.0/ref/models/querysets/#bulk-create
+* converting id in url model using slug
 
 # ETC
 -----

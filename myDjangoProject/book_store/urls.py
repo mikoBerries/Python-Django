@@ -7,5 +7,6 @@ from . import views
 
 # mapping all routes for this module
 urlpatterns = [
-    path("", views.index, name="index")  # /challenges/
+    path("", views.index),  # /bookstore/
+    path("<slug:slug>", views.book_detail, name="book-detail")
 ]

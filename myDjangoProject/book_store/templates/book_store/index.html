@@ -6,17 +6,19 @@
 
 {% block content %}
   <ul>
-    <li>BOOKS!!</li>
+    
     {% for book in books %}
-        <li>{{ book.title }}</a> (Rating: {{ book.rating }})</li>
+      {% comment %} <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a> (Rating: {{ book.rating }})</li> {% endcomment %}
+      <li><a href="{% url "book-detail" book.slug %}">{{ book.title }}</a> (Rating: {{ book.rating }})</li>
+
     {% endfor %}
-    {% comment %} {% for book in books %}
-      
-    {% endfor %} {% endcomment %}
   </ul>
 
   <hr>
 
-  {% comment %} <p>Total Number Of Books: {{ total_number_of_books }}</p>
-  <p>Average Rating: {{ average_rating.rating__avg }}</p> {% endcomment %}
+    <p>Total Number Of Books: {{ total_books }}</p>
+    <p>Average Rating: {{ average_rating.rating__avg }}</p>
+    <p>Minimum Rating: {{ average_rating.rating__min }}</p>
+    <p>Maximum Rating: {{ average_rating.rating__max }}</p>
+
 {% endblock %}
