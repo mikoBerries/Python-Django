@@ -76,8 +76,12 @@ $ ./manage.py startapp your_apps_name
 * adding templates in Django can be automated by listing our name apps in apps settings.py
 * DTL (Django Template Language) is special language to render template used by Django:
     - Documentation to tags (https://docs.djangoproject.com/en/4.2/ref/templates/builtins/)
-
-
+* Creating super admin for djanog admin moduiles:
+```
+$ py3 manage.py createsuperuser
+```
+* each project can listing a model to manages in admin panel using admin.py
+* full documentation in django-admin (https://docs.djangoproject.com/en/4.2/ref/contrib/admin/) 
 # Django models
 ---------------
 
