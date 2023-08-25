@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book, Author, Adress
+from .models import Book, Author, Adress, Country
 # Register your models here.
 
 
@@ -25,3 +25,6 @@ admin.site.register(Author, AuthorAdmin)
 
 
 admin.site.register(Adress)
+
+
+admin.site.register(Country)
