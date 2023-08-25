@@ -5,6 +5,36 @@ from django.utils.text import slugify
 # Create your models here.
 
 
+class Adress(models.Model):
+    " 1:1 adress information for author"
+    street = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=5)
+    city = models.CharField(max_length=50)
+
+    def full_address(self):
+        return f"{self.city} - {self.street} ({self.postal_code})"
+
+    def __str__(self):
+        return self.full_address()
+
+    class Meta:
+        " organize meta data of this class will show"
+        verbose_name_plural = "adress entires"
+
+
+class Author(models.Model):
+    " Holding book author information"
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    address = models.OneToOneField(Adress, on_delete=models.CASCADE, null=True)
+
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    def __str__(self):
+        return self.full_name()
+
+
 class Book(models.Model):
     """book class extend models django"""
     title = models.CharField(max_length=50)
@@ -12,7 +42,8 @@ class Book(models.Model):
     rating = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
-    author = models.CharField(null=True, max_length=100)
+    author = models.ForeignKey(
+        Author, on_delete=models.CASCADE, null=True, related_name="books")  # PROTECT / SET_NULL
     is_bestselling = models.BooleanField(default=False)
     slug = models.SlugField(default="", null=False, db_index=True)
 
