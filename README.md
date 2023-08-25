@@ -87,6 +87,9 @@ $ py3 manage.py createsuperuser
 
 * Inside of django apps there is a django models.py that will hold models that used for specifict apps. 
 * after defining some models django can automate make migration and migrate it using
+* Circular Relations & lazy Relations:
+    - Sometimes, you might have two models that depend on each other - i.e. you end up with a circular relationship. Or you have a model that has a relation with itself.Or you have a model that should have a relation with some built-in model (i.e. built into Django) or a model defined in another application.
+    - doc about it .(https://docs.djangoproject.com/en/3.2/ref/models/fields/#module-django.db.models.fields.related) 
 ```
 # To make migration file
 $ py ./myDjangoProject/manage.py makemigrations
