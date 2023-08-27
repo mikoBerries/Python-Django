@@ -104,7 +104,7 @@ $ py ./myDjangoProject/manage.py migrate
 * creating models (bulk create):
     - https://docs.djangoproject.com/en/3.0/ref/models/querysets/#bulk-create
 * converting id in url model using slug
-
+* Django have a wrapper class based to handle incoming post/get in Django (https://docs.djangoproject.com/en/4.2/topics/class-based-views/).
 # ETC
 -----
 * quick review for git: https://academind.com/tutorials/git-the-basics/
