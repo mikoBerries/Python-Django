@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'blog',
     'challenges',
     'book_store',
+    'reviews',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
