@@ -6,10 +6,12 @@
   <title>Your Review</title>
 </head>
 <body>
-  <form>
+  <form action="/reviews/" method="POST">
+    {% csrf_token %}
+    <div class="form-control {% if form.user_name.errors %}errors{% endif %}">
     <label for="username">Your name</label>
     <input id="username" name="username" type="text">
-    <button>Send</button>
+    <button type="submit">Send</button>
   </form>
 </body>
 </html>
