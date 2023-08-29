@@ -1,80 +1,14 @@
 from datetime import date
-
 from django.shortcuts import get_object_or_404, render
 
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+
+from django.views import View
+from django.views.generic import ListView, DetailView
+
 from .models import Post
-
-# all_posts = [
-#     {
-#         "slug": "hike-in-the-mountains",
-#         "image": "mountains.jpg",
-#         "author": "Maximilian",
-#         "date": date(2021, 7, 21),
-#         "title": "Mountain Hiking",
-#         "excerpt": "There's nothing like the views you get when hiking in the mountains! And I wasn't even prepared for what happened whilst I was enjoying the view!",
-#         "content": """
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-#         """
-#     },
-#     {
-#         "slug": "programming-is-fun",
-#         "image": "coding.jpg",
-#         "author": "Maximilian",
-#         "date": date(2022, 3, 10),
-#         "title": "Programming Is Great!",
-#         "excerpt": "Did you ever spend hours searching that one error in your code? Yep - that's what happened to me yesterday...",
-#         "content": """
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-#         """
-#     },
-#     {
-#         "slug": "into-the-woods",
-#         "image": "woods.jpg",
-#         "author": "Maximilian",
-#         "date": date(2020, 8, 5),
-#         "title": "Nature At Its Best",
-#         "excerpt": "Nature is amazing! The amount of inspiration I get when walking in nature is incredible!",
-#         "content": """
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-#         """
-#     }
-# ]
-
-
-# def get_date(post):
-#     return post['date']
-
-# Create your views here.
+from .forms import CommentForm
 
 
 def starting_page(request):
@@ -101,3 +35,67 @@ def post_detail(request, slug):
         "post": identified_post,
         "post_tags": identified_post.tags.all()
     })
+
+
+class StartingPageView(ListView):
+    " View to handle index pages of blog"
+    template_name = "blog/index.html"
+    model = Post
+    ordering = ["-date"]
+    context_object_name = "posts"
+
+    def get_queryset(self):
+        " manipulate query to get only 3"
+        queryset = super().get_queryset()
+        data = queryset[:3]
+        return data
+
+
+class AllPostView(ListView):
+    template_name = "blog/all-post.html"
+    model = Post
+    ordering = ["-date"]
+    context_object_name = "all_posts"
+
+
+class SinglePostView(View):
+    # template_name = "blog/post-detail.html"
+    # model = Post
+    # context_object_name = "post"
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["post_tags"] = self.object.tags.all()
+    #     context["comment_form"] = CommentForm()
+    #     # Post.objects.get.
+    #     # request = self.request
+    #     return context
+
+    def get(self, request, slug):
+        post = Post.objects.get(slug=slug)
+        context = {
+            "post": post,
+            "post_tag": post.tags.all(),
+            "comment_form": CommentForm(),
+            "comments": post.comments.all()
+        }
+        return render(request, "blog/post-detail.html", context)
+
+    def post(self, request, slug):
+        comment_form = CommentForm(request.POST)
+        post = Post.objects.get(slug=slug)
+
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+
+            return HttpResponseRedirect(reverse("post-detail-page", args=[slug]))
+
+        context = {
+            "post": post,
+            "post_tag": post.tags.all(),
+            "comment_form": comment_form,
+            "comments": post.comments.all()
+        }
+        return render(request, "blog/post-detail.html", context)

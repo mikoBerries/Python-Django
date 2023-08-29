@@ -4,6 +4,7 @@ from .models import Comment
 
 
 class CommentForm(forms.ModelForm):
+    " Serve for comment form a post"
     class Meta:
         model = Comment
         exclude = ["post"]
