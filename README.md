@@ -141,6 +141,29 @@ $ py -m venv django_your_enviroment_project_name
     - zipping all folder code nedeed for deploy.
     - dont forget to filling environment property in hosting server.
 
+* static-files.config used for set webserver to serve static file diffrent from django apps.
+* serving static file using AWS S3 are specify webserver to server files.
+    - view module to attact out project to automated uploading to AWS s3(using AWS IAM)
+    ```
+    # django-storages are django modules for managing local storage
+    $ pip install django-storages
+    # boto3 AWS modules 
+    $ pip install boto3
+    ```
+    - adding "storages" in django apps.
+    - add AWS S3 variable in setting.py:
+        - AWS_STORAGE_BUCKET_NAME
+        - AWS_S3_REGION_NAME
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_aCCESS_KEY
+        - AWS_S3_COSTUME_DOMAIN
+        - STATICFILES_STORAGE
+    - managing separate static upload file using costume_storage.py & some variable:
+        - STATICFILES_FOLDER = "static"
+        - MEDIAFILES_FOLDER = "media"
+        - STATICFILES_STORAGE = "custom_storages.StaticFileStorage"
+    - run "py manage.py collectstatic" then all static file will endup uploading in AWS S3 server.
+    
 # Setting database
 -----------------
 * full database documentation for django (https://docs.djangoproject.com/en/4.2/ref/databases/)

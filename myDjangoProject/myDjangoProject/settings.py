@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'book_store',
     'reviews',
     'profiles',
+    'storages',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -161,3 +162,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 SESSION_COOKIE_AGES = 120
+
+AWS_STORAGE_BUCKET_NAME = "YOUR REGISTERED BUCKET NAME"
+AWS_S3_REGION_NAME = "YOUR S3 REGION"
+AWS_ACCESS_KEY_ID = "AWS S3 KEY"
+AWS_SECRET_aCCESS_KEY = "AWS S3 SECRET KEY"
+
+AWS_S3_COSTUME_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazoneaws.com"
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
