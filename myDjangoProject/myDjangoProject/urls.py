@@ -24,5 +24,6 @@ urlpatterns = [
     path("challenges/", include("challenges.urls")),
     path("prj/blog/", include("blog.urls")),
     path("bookstore/", include("book_store.urls")),
-    path("reviews/", include("reviews.urls"))
+    path("reviews/", include("reviews.urls")),
+    path("profiles/", include("profiles.urls"))
 ]
