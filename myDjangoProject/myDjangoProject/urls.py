@@ -26,4 +26,5 @@ urlpatterns = [
     path("bookstore/", include("book_store.urls")),
     path("reviews/", include("reviews.urls")),
     path("profiles/", include("profiles.urls"))
-]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)\
+    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

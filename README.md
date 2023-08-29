@@ -105,6 +105,74 @@ $ py ./myDjangoProject/manage.py migrate
     - https://docs.djangoproject.com/en/3.0/ref/models/querysets/#bulk-create
 * converting id in url model using slug
 * Django have a wrapper class based to handle incoming post/get in Django (https://docs.djangoproject.com/en/4.2/topics/class-based-views/).
+
+# Deploymnt in Django framework
+-------------------------------
+* full documentation  : https://docs.djangoproject.com/en/4.2/howto/deployment/
+* Django currently supports two interfaces: WSGI and ASGI.
+    - WSGI is the main Python standard for communicating between web servers and applications, but it only supports synchronous code.
+    - ASGI is the new, asynchronous-friendly standard that will allow your Django site to use asynchronous Python features, and asynchronous Django features as they are developed.
+
+* few serving static file in django :
+    1. configuring django files (urls.py).
+    2. To configure webapps to server separate from django.
+    3. Use dedicated server to serve only static files.
+
+* best practice to separate static file of our code and user upload in separate folder. (configure in setting.py)
+```
+# command to collecting(copying) all static file in our apps to single folder 
+$ py manage.py collectstatic
+```
+* Adding static url to server by django in url.py by code in the end of dictionary:
+```
+    +static(settings.STATIC_URL, document_root=settings.STATIC_URL)
+```
+* Setting depedency lib for django and webserver:
+```
+$ py -m pip freeze > requirement.txt
+```
+* Creating virtual enviroment for specified project:
+```
+$ py -m venv django_your_enviroment_project_name
+```
+* Using enviroment variable for some setting.py (from os import getenv)
+* deploying to AWS beanstalk
+    - .ebextenxsion/django.config needed for elastic beanstalk deploy
+    - zipping all folder code nedeed for deploy.
+    - dont forget to filling environment property in hosting server.
+
+* static-files.config used for set webserver to serve static file diffrent from django apps.
+* serving static file using AWS S3 are specify webserver to server files.
+    - view module to attact out project to automated uploading to AWS s3(using AWS IAM)
+    ```
+    # django-storages are django modules for managing local storage
+    $ pip install django-storages
+    # boto3 AWS modules 
+    $ pip install boto3
+    ```
+    - adding "storages" in django apps.
+    - add AWS S3 variable in setting.py:
+        - AWS_STORAGE_BUCKET_NAME
+        - AWS_S3_REGION_NAME
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_aCCESS_KEY
+        - AWS_S3_COSTUME_DOMAIN
+        - STATICFILES_STORAGE
+    - managing separate static upload file using costume_storage.py & some variable:
+        - STATICFILES_FOLDER = "static"
+        - MEDIAFILES_FOLDER = "media"
+        - STATICFILES_STORAGE = "custom_storages.StaticFileStorage"
+    - run "py manage.py collectstatic" then all static file will endup uploading in AWS S3 server.
+    
+# Setting database
+-----------------
+* full database documentation for django (https://docs.djangoproject.com/en/4.2/ref/databases/)
+    - for postgrest using psycopg2-binary
+    ```
+    $ pip install psycopg2-binary
+
+    ```
+
 # ETC
 -----
 * quick review for git: https://academind.com/tutorials/git-the-basics/
