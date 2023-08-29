@@ -105,6 +105,39 @@ $ py ./myDjangoProject/manage.py migrate
     - https://docs.djangoproject.com/en/3.0/ref/models/querysets/#bulk-create
 * converting id in url model using slug
 * Django have a wrapper class based to handle incoming post/get in Django (https://docs.djangoproject.com/en/4.2/topics/class-based-views/).
+
+# Deploymnt in Djanog framework
+-------------------------------
+* full documentation  : https://docs.djangoproject.com/en/4.2/howto/deployment/
+* Django currently supports two interfaces: WSGI and ASGI.
+    - WSGI is the main Python standard for communicating between web servers and applications, but it only supports synchronous code.
+    - ASGI is the new, asynchronous-friendly standard that will allow your Django site to use asynchronous Python features, and asynchronous Django features as they are developed.
+
+* few serving static file in django :
+    1. configuring django files (urls.py).
+    2. To configure webapps to server separate from django.
+    3. Use dedicated server to serve only static files.
+
+* best practice to separate static file of our code and user upload in separate folder. (configure in setting.py)
+```
+# command to collecting(copying) all static file in our apps to single folder 
+$ py manage.py collectstatic
+```
+* Adding static url to server by django in url.py by code in the end of dictionary:
+```
+    +static(settings.STATIC_URL, document_root=settings.STATIC_URL)
+```
+* Setting depedency lib for django and webserver:
+```
+$ py -m pip freeze > requirement.txt
+```
+* Creating virtual enviroment for specified project:
+```
+$ py -m venv django_your_enviroment_project_name
+```
+* using enviroment variable for some setting.py (from os import getenv)
+
+
 # ETC
 -----
 * quick review for git: https://academind.com/tutorials/git-the-basics/
