@@ -106,7 +106,7 @@ $ py ./myDjangoProject/manage.py migrate
 * converting id in url model using slug
 * Django have a wrapper class based to handle incoming post/get in Django (https://docs.djangoproject.com/en/4.2/topics/class-based-views/).
 
-# Deploymnt in Djanog framework
+# Deploymnt in Django framework
 -------------------------------
 * full documentation  : https://docs.djangoproject.com/en/4.2/howto/deployment/
 * Django currently supports two interfaces: WSGI and ASGI.
@@ -135,8 +135,20 @@ $ py -m pip freeze > requirement.txt
 ```
 $ py -m venv django_your_enviroment_project_name
 ```
-* using enviroment variable for some setting.py (from os import getenv)
+* Using enviroment variable for some setting.py (from os import getenv)
+* deploying to AWS beanstalk
+    - .ebextenxsion/django.config needed for elastic beanstalk deploy
+    - zipping all folder code nedeed for deploy.
+    - dont forget to filling environment property in hosting server.
 
+# Setting database
+-----------------
+* full database documentation for django (https://docs.djangoproject.com/en/4.2/ref/databases/)
+    - for postgrest using psycopg2-binary
+    ```
+    $ pip install psycopg2-binary
+
+    ```
 
 # ETC
 -----

@@ -13,7 +13,7 @@ shell:
 collectstatic:
 	py ./myDjangoProject/manage.py collectstatic
 
-depedencytext:
+depedency:
 	py -m pip freeze > requirement.txt
 
-.phony: server migration migrate shell collectstatic
+.phony: server migration migrate shell collectstatic depedency
